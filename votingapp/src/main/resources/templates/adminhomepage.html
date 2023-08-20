@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Admin page</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header" sec:authorize="isAuthenticated()">
+      <a class="navbar-brand" >Welcome <span style="color: antiquewhite;" sec:authentication="name"></span></a>
+    </div>
+    <ul class="nav navbar-nav">
+   <li><a th:href="@{/create}">Add Candidate</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right"> 
+      <li> <a th:href="@{/logout}"><form  th:action="@{/logout}" method="post"><span class="glyphicon glyphicon-log-out">
+		  Logout </span></form></a></li>
+    </ul>
+  </div>
+</nav>
+	
+	
+<div class="container">
+<h3>Admin Home Page</h3>
+<hr>
+
+<div sec:authorize="isAuthenticated()">
+     User Name: <span sec:authentication="name"></span></div>
+<hr>
+<form th:action="@{/logout}" method="post">
+<input class="btn btn-primary btn-sm mb-3"  type="submit" value="Log out" >
+</form>
+<hr>
+<table class="table table-bordered table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Candidate Name</th> 
+<th>Votes</th>
+ <th>Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="tempcandidates : ${candidates}">
+
+<td>
+	<a th:href="@{/votehistory/{id}(id=${tempcandidates.id})}" >
+		<span th:text="${tempcandidates.name}"></span>
+	</a>
+		
+	</td>
+<td th:text="${tempcandidates.votes.size()}" />
+
+<td th:text="${tempcandidates.percentage}" />
+ 
+
+
+
+</tbody>
+
+</table>
+
+<div th:if="${winnerCandidate}">
+<h2>Winner Candidate:</h2>
+<p>Candidate Id:<span th:text="${winnerCandidate.id}"></span></p>
+<p>Candidate name:<span th:text="${winnerCandidate.name}"></span></p>
+<p>Candidate Votes:<span th:text="${#lists.size(winnerCandidate.votes)}"></span></p>
+<p>Candidate Percentage:<span th:text="${winnerCandidate.percentage}"></span></p>
+
+</div>
+
+</div><!-- container end -->
+</body>
+</html>

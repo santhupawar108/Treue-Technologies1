@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration Form</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+		<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header" sec:authorize="isAuthenticated()">
+      <a class="navbar-brand" >Welcome <span style="color: antiquewhite;" sec:authentication="name"></span></a>
+    </div>
+    <ul class="nav navbar-nav">
+   
+    </ul>
+    <ul class="nav navbar-nav navbar-right"> 
+      <li> <a th:href="@{/logout}"><form  th:action="@{/logout}" method="post"><span class="glyphicon glyphicon-log-out">
+		  Logout </span></form></a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+<p class="h4 mb-4">Fill Registration</p>
+ <form action="#" th:action="@{/create}" th:object="${candidateinfo}"   method="post">
+<!-- for update hidden form field -->
+
+ <input type="hidden" th:field="*{id}"/>
+
+ <input type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="user Name"> <br>
+
+
+
+
+
+<button type="submit" class="btn btn-info col-2">Register</button>
+<hr>
+
+<a th:href="@{/adminhome}">Goto DashBoard</a>
+</form>
+
+</div>
+</body>
+</html>

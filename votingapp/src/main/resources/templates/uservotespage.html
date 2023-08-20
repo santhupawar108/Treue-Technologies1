@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Admin page</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<h3>Admin History Page</h3>
+<hr>
+
+<div sec:authorize="isAuthenticated()">
+     User Name: <span sec:authentication="name"></span></div>
+<hr>
+<form th:action="@{/logout}" method="post">
+<input class="btn btn-primary btn-sm mb-3"  type="submit" value="Log out" >
+
+<a th:href="@{/adminhome}">Back to Home Page</a>
+
+</form>
+
+<hr>
+
+
+< <h2>Users who voted for Candidate: <span th:text="${currentCandidate.name}" style="color:darkblue;"></span></h2>
+    
+    <ul style="font-size: 15px;">
+       <li th:each="user : ${votedUser}" th:text="${user.username}"></li> 
+    </ul> 
+
+
+
+</div>
+</body>
+</html>
