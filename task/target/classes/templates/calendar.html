@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<script>
+		
+		import { Calendar } from '@fullcalendar/core'
+import dayGridPlugin from '@fullcalendar/daygrid'
+
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar'); // Reference the element where you want to render the calendar
+
+    const calendar = new Calendar(calendarEl, {
+        plugins: [dayGridPlugin],
+        initialView: 'dayGridMonth'
+    });
+
+    calendar.render(); // Render the calendar
+});
+		
+		
+	</script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.css" rel="stylesheet">
+
+	
+	
+    <!-- Include necessary CSS and JavaScript for the calendar library -->
+    <!-- Initialize the calendar in a script tag -->
+    <script th:inline="javascript">
+        var tasks = /*[[${taskss}]]*/ [];
+        // Initialize and render the calendar using the tasks data
+        // Refer to the documentation of your chosen calendar library
+    </script>
+</head>
+<body>
+    <div id="calendar"></div>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.9.0/main.min.js"></script>
+    <script src="your-script.js"></script>
+</body>
+</html>

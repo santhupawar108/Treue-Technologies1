@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+    
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header" sec:authorize="isAuthenticated()">
+      <a class="navbar-brand" >Welcome <span style="color: antiquewhite;" sec:authentication="name"></span></a>
+    </div>
+    <ul class="nav navbar-nav">
+   <li><a th:href="@{/}">Goto DashBoard </a></li>
+   
+    </ul>
+    <ul class="nav navbar-nav navbar-right"> 
+      <li> <a th:href="@{/logout}"><form  th:action="@{/logout}" method="post"><span class="glyphicon glyphicon-log-out">
+		  Logout </span></form></a></li>
+    </ul>
+  </div>
+</nav>
+	
+	
+<div class="container">
+    <h1>Create Task</h1>
+   
+    <form th:action="@{/tasks/new}" th:object="${task}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    
+        <label for="title">Title:</label>
+        <input type="text" class="form-control mb-4 col-4" th:field="*{title}" id="title" required>
+        <br>
+        <label for="dueDate">Due Date:</label>
+        <input type="date" class="form-control mb-4 col-4" th:field="*{dueDate}" id="dueDate" required>
+        <br>
+      <!--  <label for="category">Category:</label>
+        <input type="text" class="form-control mb-4 col-4"  th:field="*{category}" id="category">
+        <br> -->
+        <label>Priority:</label>
+        <select name="priority" class="form-control mb-4 col-4" th:field="*{priority}" id="priority">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+        
+        
+    </select>
+    <!--    <label for="priority">Priority:</label>
+        <input type="text" class="form-control mb-4 col-4" th:field="*{priority}" id="priority">-->
+        <br>
+        <label>Category:</label>
+    <select name="category" class="form-control mb-4 col-4"  th:field="*{category}" id="category">
+        <!--<option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>-->
+          <option value="frist">first category</option>
+        <option value="second">Second Category</option>
+        <option value="third">Third Category</option>
+    </select><br>
+    
+    <br>
+        
+        
+        
+        <br>
+        <button type="submit" class="btn btn-info col-2">Create Task</button>
+        
+</form>
+</div>
+</body>
+</html>

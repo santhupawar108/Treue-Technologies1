@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Task data</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	
+		<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header" sec:authorize="isAuthenticated()">
+      <a class="navbar-brand" >Welcome <span style="color: antiquewhite;" sec:authentication="name"></span></a>
+    </div>
+    <ul class="nav navbar-nav">
+   <li><a th:href="@{/tasks/new}">Create New Task </a></li>
+   <li><a th:href="@{/all}">See All Task </a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right"> 
+      <li> <a th:href="@{/logout}"><form  th:action="@{/logout}" method="post"><span class="glyphicon glyphicon-log-out">
+		  Logout </span></form></a></li>
+    </ul>
+  </div>
+</nav>
+	
+<div class="container">
+<h3>Today Task Directory</h3>
+<hr>
+<!--<a th:href="@{/tasks/new}" class="btn btn-primary btn-sm mb-3">Create New Task</a>-->
+<table class="table table-bordered table-striped">
+<thead class="thead-dark">
+<tr>
+<th>Title</th> 
+<th>Due Date</th>
+<th>Category</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="task : ${tasks}">
+<td th:text="${task.title}"/>
+<td th:text="${task.dueDate}"/>
+<td th:text="${task.category}"/>
+<td th:text="${task.priority}"/>
+<td th:text="${task.status}"/>
+<!-- add update link -->
+<td>
+<a th:href="@{/edit(taskId=${task.id})}"
+ class="btn btn-info btn-sm">Update</a>
+ 
+ 
+ <!-- delete -->
+ <a th:href="@{/delete(taskId=${task.id})}"
+ class="btn btn-danger btn-sm" onclick="if(!(confirm('are you delete this Task?'))) return false">Delete</a>
+ 
+ <a th:href="@{/complete(taskId=${task.id})}"
+ class="btn btn-info btn-sm">Complete</a>
+ </td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</body>
+</html>
