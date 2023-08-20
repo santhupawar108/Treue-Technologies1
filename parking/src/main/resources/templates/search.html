@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Parking Spot Search</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<br>
+
+<div class="container">
+<br>
+<div class="row">
+<div class="col-md-10 col-xs-12">
+<div sec:authorize="isAuthenticated()">
+     Welcome: <span th:text="${#authentication.name}" sec:authentication="name"></span></div>
+</div>
+
+<div class="col-md-2 col-xs-12">
+<form th:action="@{/logout}" method="post">
+<input  type="submit" value="Log out" >
+</form>
+</div>
+
+</div><!-- end row -->
+<hr>
+<div class="row ">
+<div class="col-md-4"></div>
+<div class="col-md-4 col-xs-12"><a th:href="@{/parking/dashboard}">DahBoard</a> </div>
+<div class="col-md-4"></div>
+</div><!-- row end -->
+<hr>
+
+ 
+</div>
+
+
+
+
+<h2 class="h4 mb-4">Search form</h2>
+
+
+
+ <form action="#" th:action="@{/parking/search}"     method="get">
+
+        <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" />
+        </div>
+        <div>
+            <label for="availability">Availability:</label>
+            <select id="availability" name="availability">
+                <option value="">Any</option>
+                <option value="true">Available</option>
+                <option value="false">Occupied</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-info col-2 btn1">Search</button>
+        </div>
+
+<hr>
+
+</form>
+
+<h3>Search Results</h3>
+    <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Location</th>
+            <th>Availability</th>
+            <th>Price</th>
+			<th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+         <tr th:each="parkingSpot : ${parkingSpots}">
+            <td th:text="${parkingSpot.location}"></td>
+            <td th:text="${parkingSpot.available} ? 'Available' : 'Occupied'"></td>
+            <td th:text="${parkingSpot.price}"></td>
+			<td><a th:href="@{/parking/confirm/{id}(id=${parkingSpot.id})}"
+ class="btn btn-info btn-sm">Book Now</a>
+ </td>
+        </tr>
+        
+        </tbody>
+       
+    </table>
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Booking Confirmation</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<br>
+<div class="container">
+<br>
+<div class="row">
+<div class="col-md-8 col-xs-12">
+<div sec:authorize="isAuthenticated()">
+     Welcome: <span th:text="${#authentication.name}" sec:authentication="name"></span></div>
+</div>
+<div class="col-md-2 col-xs-12"><a th:href="@{/parking/dashboard}">DahBoard</a> </div>
+<div class="col-md-2 col-xs-12">
+<form th:action="@{/logout}" method="post">
+<input  type="submit" value="Log out" >
+</form>
+</div>
+
+</div><!-- end row -->
+<hr>
+ 
+</div>
+
+
+
+
+
+
+
+<p class="h4 mb-4">Booking Confirmation</p>
+
+
+
+ <form action="#" th:action="@{/parking/confirm/{parkingSpotId}(parkingSpotId=${parkingSpot.id})}" th:object="${booking}"    method="post">
+<input type="hidden" th:field="*{user}" th:value="${userId}" />
+ <div>
+ 
+            <label>Location:</label>
+            <span th:text="${parkingSpot.location}"></span>
+        </div>
+        <div>
+            <label>Price:</label>
+            <span th:text="${parkingSpot.price}"></span>
+        </div>
+
+<br>
+<button type="submit" class="btn btn-info col-2 btn1" >Confirm Booking</button>
+<hr>
+
+</form>
+
+</div>
+</body>
+</html>

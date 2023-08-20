@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>User Dashboard</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript {parkingSpotId} -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<br>
+<div class="container">
+<br>
+<div class="row">
+<div class="col-md-4 col-xs-12">
+<div sec:authorize="isAuthenticated()">
+     Welcome: <span th:text="${#authentication.name}" sec:authentication="name"></span></div>
+</div>
+<div class="col-md-4 col-xs-12"> Dashboard  </div>
+<div class="col-md-4 col-xs-12">
+<form th:action="@{/logout}" method="post">
+<input  type="submit" value="Log out" >
+</form>
+</div>
+
+</div><!-- end row -->
+<hr>
+<div class="row ">
+<div class="col-md-4"></div>
+<div class="col-md-4 col-xs-12"><a th:href="@{/parking/search}">Search</a> </div>
+<div class="col-md-4"></div>
+</div><!-- row end -->
+<hr>
+
+ 
+</div>
+
+
+
+ <h2 class="h4 mb-4 ">User Dashboard</h2>
+    <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Location</th>
+            <th>Booking Date</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookings}">
+            <td th:text="${booking.parkingSpot.location}"></td>
+            <td th:text="${booking.bookingDate}"></td>
+            <td>
+                <form th:action="@{/parking/cancel/{bookingId}(bookingId=${booking.id})}" method="post">
+                    <button type="submit">Cancel</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
